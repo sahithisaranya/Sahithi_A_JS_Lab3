@@ -26,8 +26,35 @@ class WeatherApp{
 
     updateControls(weatherJSON){
         console.log("updateControls called");
+
+        //update city and country
+        const cityElement=document.querySelector(".location .city");
+        cityElement.innerHTML=`${weatherJSON.name}, ${weatherJSON.sys.country}`;
+
+        //update date
+        const dateElement=document.querySelector(".location .date");
+        const now=new Date();
+        const dateStr=now.toLocaleDateString("en-US",{
+            weekday: 'long',
+            year:'numeric',
+            mont:'long',
+            day:'numeric'
+        });
+
+        dateElement.innerHTML=`${dateStr}`;
+
+        //display weather like mist, cloudy, snowy etc
         const weatherElement=document.querySelector(".current .weather");
         weatherElement.innerText=weatherJSON.weather[0].main;
+
+        //display temperature current
+        const tempElement=document.querySelector(".current .temp");
+        tempElement.innerHTML=`${weatherJSON.main.temp}°c`;
+
+        //display high-low
+        const highLowElement=document.querySelector(".current .hi-low");
+        highLowElement.innerHTML=`${weatherJSON.main.temp_max}°c / ${weatherJSON.main.temp_min}°c`;
+
     }
 }
 export {WeatherApp}
